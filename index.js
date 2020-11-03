@@ -19,7 +19,7 @@ app.use("/api",bodyParser.urlencoded({ extended : false}), router)
 //         res.json(user_information)
 // })
 router.route("/getUser")
-    .get( (req,res)=>{
+    .post( (req,res)=>{
         let user_information = []
         let username = req.body.username
         let password = req.body.password
