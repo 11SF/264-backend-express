@@ -5,20 +5,22 @@ let bodyParser = require('body-parser')
 let https = require('https')
 let app = express()
 
-// const PORT = 5000
+const HOST = '0.0.0.0'
+const PORT = process.env.PORT || 5000
 app.use(cors())
 
 app.use("/api", bodyParser.json(), router)
 app.use("/api",bodyParser.urlencoded({ extended : false}), router)
 
-let user_information = []
+// let user_information = []
 
+// router.route("/getUser")
+//     .get((req,res)=>{
+//         res.json(user_information)
+// })
 router.route("/getUser")
-    .get((req,res)=>{
-        res.json(user_information)
-})
-router.route("/getUser")
-    .post( (req,res)=>{
+    .get( (req,res)=>{
+        let user_information = []
         let username = req.body.username
         let password = req.body.password
 
@@ -32,15 +34,16 @@ router.route("/getUser")
             }    
         }
 
-        let req_api = https.request(options,(res_api)=>{
+        let req_api =  https.request(options,(res_api)=>{
             let chunks = [];
             res_api.on("data", (chunk)=>{
                 chunks.push(chunk)
             })
-            res_api.on("end", (chunk)=>{
-                var body = Buffer.concat(chunks)
+            res_api.on("end",async (chunk)=>{
+                var body =  Buffer.concat(chunks)
                 console.log(body.toString())
-                user_information = JSON.parse(body.toString())
+                user_information = await JSON.parse(body.toString())
+                res.json(user_information)
             })
             res_api.on("error",(error)=>{
                 console.log(error)
@@ -52,7 +55,9 @@ router.route("/getUser")
         req_api.write(postData)
         
         req_api.end();
-        res.json(user_information)
+        
     })
 
-// app.listen(PORT, ()=> console.log('Server is running on :',PORT))
+    app.listen(PORT, HOST, () => {
+        console.log("Server is running on port :", PORT)
+    })
