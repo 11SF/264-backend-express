@@ -3,60 +3,25 @@ let cors = require('cors')
 let router = express.Router()
 let bodyParser = require('body-parser')
 let https = require('https')
+const { Router } = require('express')
 let app = express()
+let db = require("./database")
+let enrollRule = require('./Model/EnrollRule')
 
 const HOST = '0.0.0.0'
 const PORT = process.env.PORT || 5000
 app.use(cors())
+app.use(express.json())
+// app.use("/api", bodyParser.json(), router)
+// app.use("/api",bodyParser.urlencoded({ extended : false}), router)
 
-app.use("/api", bodyParser.json(), router)
-app.use("/api",bodyParser.urlencoded({ extended : false}), router)
-
-// let user_information = []
-
-// router.route("/getUser")
-//     .get((req,res)=>{
-//         res.json(user_information)
-// })
-router.route("/getUser")
-    .post( (req,res)=>{
-        let user_information = []
-        let username = req.body.username
-        let password = req.body.password
-
-        let options = {
-            'method': 'POST',
-            'hostname': 'restapi.tu.ac.th',
-            'path': '/api/v1/auth/Ad/verify',
-            'headers': {
-              'Content-Type': 'application/json',
-              'Application-Key': 'TUb137bfafbaf4a6f5971dcbd060cffee36222351a62a97089c1932e41279778b9f4219202d623edad7df0e3156ff22726'
-            }    
-        }
-
-        let req_api =  https.request(options,(res_api)=>{
-            let chunks = [];
-            res_api.on("data", (chunk)=>{
-                chunks.push(chunk)
-            })
-            res_api.on("end",async (chunk)=>{
-                var body =  Buffer.concat(chunks)
-                console.log(body.toString())
-                user_information = await JSON.parse(body.toString())
-                res.json(user_information)
-            })
-            res_api.on("error",(error)=>{
-                console.log(error)
-            })
-        })
-        
-        var postData = `{\n\t\"UserName\":\"${username}\",\n\t\"PassWord\":\"${password}\"\n}`
-        
-        req_api.write(postData)
-        
-        req_api.end();
-        
-    })
+app.use(require("./api/user"))
+app.use(require("./api/enroll"))
+// router.route("/enroll/pushEnrollRule")
+//     .post(async(req,res)=> {
+//         let enroll_rule = new enrollRule(req.body.text);
+//         await enroll_rule.save()
+//     })
 
     app.listen(PORT, HOST, () => {
         console.log("Server is running on port :", PORT)
