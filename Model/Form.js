@@ -36,6 +36,10 @@ const formSchema = new Schema({
             name: String,
             comment: String,
             time: String,
+            approve: {
+                type: Boolean,
+                default: false
+            },
             accept: {
                 type: Boolean,
                 default: false
@@ -45,6 +49,10 @@ const formSchema = new Schema({
             name: String,
             comment: String,
             time: String,
+            approve: {
+                type: Boolean,
+                default: false
+            },
             accept: {
                 type: Boolean,
                 default: false
@@ -54,6 +62,10 @@ const formSchema = new Schema({
             name: String,
             comment: String,
             time: String,
+            approve: {
+                type: Boolean,
+                default: false
+            },
             accept: {
                 type: Boolean,
                 default: false
@@ -63,6 +75,10 @@ const formSchema = new Schema({
             name: String,
             comment: String,
             time: String,
+            approve: {
+                type: Boolean,
+                default: false
+            },
             accept: {
                 type: Boolean,
                 default: false
