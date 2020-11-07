@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const username = "nawapong12";
-const password = "";
+const password = "Bundidnoi_01";
 const dbName = "264_web_storage"
 
 const mongo_url = `mongodb+srv://${username}:${password}@cluster0.qezk3.mongodb.net/${dbName}?retryWrites=true&w=majority`;
