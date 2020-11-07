@@ -30,12 +30,62 @@ router.post("/api/enroll/submitEnrollForm",async (req,res)=> {
     await form.save()
     res.json({"msg":"Submit enrollform complete."})
 });
+// router.get("/api/enroll/getEnrollForm", async (req,res)=> {
+//         const result = await enrollForm.find({
+//             "owner_info.student_id": req.body.student_id
+//         })
+//         res.json(result);
+// });
+// router.get("/api/enroll/getEnrollFormByStudent_id", async (req,res)=> {
+//     const result = await enrollForm.find({
+//         "owner_info.student_id": req.body.student_id
+//     })
+//         res.json(result);
+// });
 router.get("/api/enroll/getEnrollForm", async (req,res)=> {
+    let queryParams = req.query;
+
+    if(queryParams['select'] == 1) {            //student_id
         const result = await enrollForm.find({
-            "owner_info.student_id": req.body.student_id,
-            "acception.teacher.name": req.body.staff_name
-        })
+            "owner_info.student_id": queryParams['student_id'],
+        })  
+        res.json(result);  
+    } else if(queryParams['select'] == 2) {
+        const result = await enrollForm.find({
+            "owner_info.student_id": queryParams['student_id'],
+            "form_status": queryParams['form_status']
+        })   
         res.json(result);
+    } else if(queryParams['select'] == 3) {
+        const result = await enrollForm.find({
+            "acception.advisor.name": queryParams['name'],
+            "acception.advisor.accept": queryParams['accept']
+        })   
+        res.json(result);
+    } else if(queryParams['select'] == 4) {
+        const result = await enrollForm.find({
+            "acception.staff.name": queryParams['name'],
+            "acception.staff.accept": queryParams['accept']
+        })   
+        res.json(result);
+    } else if(queryParams['select'] == 5) {
+        const result = await enrollForm.find({
+            "acception.teacher.name": queryParams['name'],
+            "acception.teacher.accept": queryParams['accept']
+        })   
+        res.json(result);
+    } else if(queryParams['select'] == 6) {
+        const result = await enrollForm.find({
+            "acception.doyen.name": queryParams['name'],
+            "acception.doyen.accept": queryParams['accept']
+        })   
+        res.json(result);
+    }  else if(queryParams['select'] == 7) {
+        const result = await enrollForm.find({
+            "form_status": queryParams['form_status']
+        })   
+        res.json(result);
+    }  
 });
 
 module.exports = router;
