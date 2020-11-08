@@ -23,6 +23,7 @@ const formSchema = new Schema({
         semester: String,
         year: String,
         subject_name: String,
+        subject_id: String,
         section: String,
         teacher_name: String
     },
