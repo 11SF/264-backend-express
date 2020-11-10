@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const formSchema = new Schema({
     owner_info: {
         name: String,
-        name_title: String,
         student_id: String,
         college_years: String,
         department: String,
@@ -34,9 +33,14 @@ const formSchema = new Schema({
     },
     acception: {
         advisor: {
-            name: String,
-            comment: String,
-            time: String,
+            comment: {
+                type: String,
+                default: ""
+            },
+            time: {
+                type: String,
+                default: ""
+            },
             approve: {
                 type: Boolean,
                 default: false
@@ -47,9 +51,18 @@ const formSchema = new Schema({
             }
         },
         staff: {
-            name: String,
-            comment: String,
-            time: String,
+            name: {
+                type: String,
+                default: ""
+            },
+            comment: {
+                type: String,
+                default: ""
+            },
+            time: {
+                type: String,
+                default: ""
+            },
             approve: {
                 type: Boolean,
                 default: false
@@ -60,9 +73,18 @@ const formSchema = new Schema({
             }
         },
         teacher: {
-            name: String,
-            comment: String,
-            time: String,
+            name: {
+                type: String,
+                default: ""
+            },
+            comment: {
+                type: String,
+                default: ""
+            },
+            time: {
+                type: String,
+                default: ""
+            },
             approve: {
                 type: Boolean,
                 default: false
@@ -73,9 +95,18 @@ const formSchema = new Schema({
             }
         }, 
         doyen: {
-            name: String,
-            comment: String,
-            time: String,
+            name: {
+                type: String,
+                default: ""
+            },
+            comment: {
+                type: String,
+                default: ""
+            },
+            time: {
+                type: String,
+                default: ""
+            },
             approve: {
                 type: Boolean,
                 default: false
