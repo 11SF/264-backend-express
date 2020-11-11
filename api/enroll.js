@@ -89,6 +89,7 @@ router.get("/api/enroll/getEnrollForm", async (req,res)=> {
         const result = await enrollForm.findById(
             queryParams['id']
         )
+        res.json(result);
     }
 });
 
