@@ -93,4 +93,15 @@ router.get("/api/enroll/getEnrollForm", async (req,res)=> {
     }
 });
 
+router.put("/api/enroll/updateEnrollForm",async (req,res)=> {
+    const payload = req.body;
+    let queryParams = req.query;
+    const update = await enrollForm
+    .findByIdAndUpdate(
+        queryParams['id'],
+        { $set: payload }
+    );
+    res.json({"msg":"Update enrollrule complete."})
+});
+
 module.exports = router;
