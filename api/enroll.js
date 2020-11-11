@@ -42,6 +42,7 @@ router.post("/api/enroll/submitEnrollForm", async (req, res) => {
 // });
 router.get("/api/enroll/getEnrollForm", async (req, res) => {
   let queryParams = req.query;
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
   if (queryParams["select"] == 1) {
     //student_id
@@ -95,8 +96,8 @@ router.put("/api/enroll/updateEnrollForm", async (req, res) => {
   const payload = req.body.params;
   const update = await enrollForm.findByIdAndUpdate(id, { $set: payload });
   res.json({ msg: "Update enrollrule complete." });
-  console.log("query", req.query);
-  console.log("body", req.body.params.acception);
+//   console.log("query", req.query);
+//   console.log("body", req.body.params.acception);
 });
 
 module.exports = router;
