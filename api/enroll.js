@@ -58,7 +58,7 @@ router.get("/api/enroll/getEnrollForm", async (req,res)=> {
         res.json(result);
     } else if(queryParams['select'] == 3) {
         const result = await enrollForm.find({
-            "acception.advisor.name": queryParams['name'],
+            "owner_info.advisor": queryParams['name'],
             "acception.advisor.accept": queryParams['accept']
         })   
         res.json(result);
