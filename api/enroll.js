@@ -85,7 +85,11 @@ router.get("/api/enroll/getEnrollForm", async (req,res)=> {
             "form_status": queryParams['form_status']
         })   
         res.json(result);
-    }  
+    }  else if(queryParams['select'] == 8) {
+        const result = await enrollForm.findById(
+            queryParams['id']
+        )
+    }
 });
 
 module.exports = router;
